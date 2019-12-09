@@ -15,7 +15,7 @@ describe("<AuthorsList />", () => {
     expect(wrapper.find(".authors").exists()).toBe(true);
   });
 
-  it("renders correct number of AuhtorCards", () => {
+  it("renders correct number of AuthorCards", () => {
     const wrapper = mount(<AuthorsList authors={authors} />);
     expect(wrapper.find("AuthorCard").length).toBe(7);
   });
