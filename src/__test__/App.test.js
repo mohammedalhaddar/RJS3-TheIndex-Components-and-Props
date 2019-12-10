@@ -28,7 +28,7 @@ describe("<App />", () => {
     ).toBe(true);
   });
 
-  it("renders div with col-10 class and AuthorList component within it", () => {
+  it("renders div with col-10 class and AuthorsList component within it", () => {
     expect(
       wrapper
         .find(".col-10")
