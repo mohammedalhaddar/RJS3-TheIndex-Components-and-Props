@@ -1,27 +1,31 @@
 //Imports
 import React from "react";
-import { mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-//Configuration
-configure({ adapter: new Adapter() });
+import { shallow } from "enzyme";
+
 // Component
 import AuthorsList from "../AuthorsList";
-//Data
-import authors from "../data";
+
+//Mocks
+import { fakeAuthor } from "../testUtils";
 
 describe("<AuthorsList />", () => {
+  let wrapper;
+  const authors = Array.from({ length: Math.floor(Math.random() * 20) }, () =>
+    fakeAuthor()
+  );
+  beforeEach(() => {
+    wrapper = shallow(<AuthorsList authors={authors} />);
+  });
+
   it("renders correctly", () => {
-    const wrapper = mount(<AuthorsList authors={authors} />);
     expect(wrapper.find(".authors").exists()).toBe(true);
   });
 
   it("renders correct number of AuthorCards", () => {
-    const wrapper = mount(<AuthorsList authors={authors} />);
-    expect(wrapper.find("AuthorCard").length).toBe(7);
+    expect(wrapper.find("AuthorCard").length).toBe(authors.length);
   });
 
   it("renders different authors", () => {
-    const wrapper = mount(<AuthorsList authors={authors} />);
     const cards = wrapper
       .find(".card")
       .map(card => card.find(".card-title").text());
@@ -29,7 +33,6 @@ describe("<AuthorsList />", () => {
   });
 
   it("has the correct content in each author card", () => {
-    const wrapper = mount(<AuthorsList authors={authors} />);
     wrapper.find(".card").forEach((card, idx) => {
       const image = card.find("img");
       const authorName = card.find(".card-title");
